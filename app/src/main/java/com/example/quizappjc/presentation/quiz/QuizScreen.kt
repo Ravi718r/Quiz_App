@@ -1,6 +1,7 @@
 package com.example.quizappjc.presentation.quiz
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +66,10 @@ fun QuizScreen(
     navController: NavController
 ) {
 
+    BackHandler {
+        goToHomeScreen(navController)
+    }
+
     LaunchedEffect(key1 = Unit) {
 
         val difficulty = when (quizDifficulty) {
@@ -90,7 +95,7 @@ fun QuizScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         QuizAppBar(quizCategory = quizCategory) {
-
+            goToHomeScreen(navController)
         }
 
         Column(
@@ -211,6 +216,14 @@ fun QuizScreen(
                 }
             }
 
+        }
+    }
+}
+
+fun goToHomeScreen(navController: NavController) {
+    navController.navigate(Routes.HomeScreen.route){
+        popUpTo(Routes.HomeScreen.route){
+            inclusive = true
         }
     }
 }

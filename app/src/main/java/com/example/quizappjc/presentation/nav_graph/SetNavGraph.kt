@@ -71,7 +71,7 @@ fun SetNavGraph() {
         ){
             val numOfQuestions=it.arguments?.getInt(NOQ_KEY)
             val numOfCorrectAns=it.arguments?.getInt(CORRECT_ANS_KEY)
-            ScoreScreen(numOfQuestions = numOfQuestions!!, numOfCorrectans = numOfCorrectAns!!)
+            ScoreScreen(numOfQuestions = numOfQuestions!!, numOfCorrectans = numOfCorrectAns!!,navController)
         }
 
     }

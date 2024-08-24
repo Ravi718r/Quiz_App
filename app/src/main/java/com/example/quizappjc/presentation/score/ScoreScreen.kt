@@ -1,6 +1,7 @@
 package com.example.quizappjc.presentation.score
 
 import android.icu.text.DecimalFormat
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,25 +34,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.navArgument
 import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.quizappjc.presentation.util.Dimens
 import com.example.quizappjc.R
+import com.example.quizappjc.presentation.nav_graph.Routes
 
-@Composable
-@Preview
-fun PrevScoreScreen() {
-    ScoreScreen(numOfQuestions = 10, numOfCorrectans = 5)
-}
+//@Composable
+//@Preview
+//fun PrevScoreScreen() {
+//    ScoreScreen(numOfQuestions = 10, numOfCorrectans = 5)
+//}
 
 @Composable
 
 fun ScoreScreen(
     numOfQuestions: Int,
-    numOfCorrectans: Int
+    numOfCorrectans: Int,
+    navController: NavController
 ) {
+    BackHandler {
+        goToHome(navController )
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +70,7 @@ fun ScoreScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { goToHome(navController) }) {
                 Icon(
                     painterResource(id = R.drawable.baseline_close_24),
                     contentDescription = "close",
@@ -193,6 +201,13 @@ fun ScoreScreen(
     }
 }
 
+fun goToHome(navController: NavController){
+    navController.navigate(Routes.HomeScreen.route){
+        popUpTo(Routes.HomeScreen.route){
+            inclusive = true
+        }
+    }
+}
 
 @Composable
 fun calculatePercentage(k: Int, n: Int): Double {
